@@ -59,9 +59,9 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
 
 #### Naive DQN 實驗結果
 <img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/bdbe0503-e48f-4e7c-8dd2-d3e43df3be92" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/c88194e6-1da8-4059-b480-d51d97b25bac" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/c0b5d0a9-8c94-4e5f-acd0-cd0590d32e9c" />
 
-[圖片位置：Naive DQN - Player]
-[圖片位置：Naive DQN - Random]
 
 **結果說明：**
 - **Static 模式**：幾乎無法收斂，獎勵值多保持在 -30 左右。這是因為 Agent 陷入局部最佳解或在牆壁間徘徊，最終觸發了 30 步的強制停止限制（30 步 $\times$ -1/step = -30）。
@@ -72,9 +72,10 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
 為了優化 Naive DQN，我們引入了「經驗回放池」。Agent 將經驗 $(s, a, r, s')$ 存入一個 Buffer 中，訓練時隨機抽取一個 Batch 的資料進行更新。這能有效打破資料間的相關性，並提高資料利用率。
 
 #### 經驗回放實驗結果分析
-[圖片位置：ER DQN - Static]
-[圖片位置：ER DQN - Player]
-[圖片位置：ER DQN - Random]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/6e983043-1baf-408c-b8bf-44ef9bd3ffaf" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/bba2bc08-7a0a-4fcb-b33b-495db360f164" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/33bff433-3c1c-4183-b0bc-15ffbc7f6c38" />
+
 
 **結果說明：**
 引入經驗回放後，**Static** 與 **Player** 模式已經能夠達到收斂，Agent 開始學會走向終點。然而，訓練過程仍有明顯震盪。而在 **Random** 模式下，由於環境狀態組合過於龐大，單純的經驗回放仍不足以穩定學習。
@@ -86,17 +87,26 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
 #### Double DQN (DDQN)
 **原理**：傳統 DQN 容易出現「過度估計（Overestimation）」Q 值的問題。DDQN 透過拆分「動作選擇」與「數值評估」來解決：利用 Policy Net 決定動作，再利用 Target Net 計算該動作的 Q 值，進而提供更精確的更新目標。
 
-[圖片位置：Double DQN - Static/Player/Random]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/eb781526-5640-40d0-ad4d-3933f136ddc8" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/1ff77103-b3d3-47b0-9663-4957d4093573" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/b1925ebd-7ab0-4c55-b714-5768bb0271aa" />
+
 
 #### Dueling DQN
 **原理**：將神經網路輸出拆解為兩個支流：**狀態價值 (Value)** 與 **動作優勢 (Advantage)**。這樣做的好處是即便 Agent 沒試過某個動作，也能透過對該狀態的整體價值評估來學習。
 
-[圖片位置：Dueling DQN - Static/Player/Random]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/9b641d24-6cac-4a73-958f-03ae973766e9" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/920e895f-ed1b-4c69-9dd1-ee200c6e4d87" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/d2839ec1-01c4-4bbd-820f-abb0fcef59c6" />
+
 
 #### 兩者結合：Dueling Double DQN
 將上述兩者結合後，Agent 同時具備了抑制過度估計與精細化狀態評估的能力。
 
-[圖片位置：Dueling Double DQN - Result]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/51ad5c59-d5b3-4391-a172-d89469440a9e" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/473a9699-b03c-4915-8793-4b13ddd6acb3" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/49aabc9f-ba20-4b63-a7c4-87282d75d124" />
+
 
 **結果說明：**
 比起普通 DQN，結合後的版本展現了以下優點：
@@ -120,11 +130,13 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
 3. **梯度裁剪**：設定梯度強制的上限閾值（Threshold），防止因單次獎勵回傳（如踩到陷阱）產生過大的更新力道而摧毀已學會的網路權重。
 
 #### 初步實驗結果 
-[圖片位置：PL - Static]
-[圖片位置：PL - Player]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/d114364e-3222-41e6-baed-e16481b06b03" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/fb4f8569-ab45-4869-81f4-71504f4439e2" />
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/c89e39c8-d370-4732-83c8-134a39428837" />
+
 
 **結果說明：**
-對於簡單的 Static 與 Player 模式，這些技巧讓收斂曲線近乎完美，雖然與 3-2 相比提升不明顯，但穩定性更高。然而，**Random 模式** 雖然開始能維持在較高的分數（約 -100 到 -200 之間），不再像先前頻繁掉出頁面底端，但仍未真正收斂到正分。
+對於簡單的 Static 與 Player 模式，雖然與 3-2 相比提升不明顯，這些技巧讓收斂但穩定性更高。然而，**Random 模式** 雖然開始能維持在較高的分數（約 -100 到 -200 之間），不再像先前頻繁掉出頁面底端，但仍未真正收斂到正分。
 
 #### 參數調整與網路擴張 (pytorch_lighting_new)
 針對 Random 模式不收斂的問題，我們進行了以下診斷與改進：
@@ -138,7 +150,8 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
 - **探索空間**：MAX_STEPS 增加至 **50**，Batch Size 提高至 **64**。
 
 #### 最終優化結果分析
-[圖片位置：PL New - Random Result]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/46814731-9abd-42fa-a674-ab4c0c651f71" />
+
 
 **結果說明：**
 從長遠來看，Random 模式終於展現出明顯的收斂趨勢。雖然仍有波動，但隨著學習率下降與經驗累積，**平均獎勵線在後期已經突破 0 分大關**，代表 Agent 在隨機地圖中找到終點的機率已遠高於踩到陷阱或超時，證明了擴大容量與延長訓練時間對複雜環境的必要性。
@@ -152,7 +165,8 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
 3. **Multi-step ($n$-step)**：預測未來 3 步的獎勵，加速信號回傳。
 
 #### 實驗結果分析：為什麼 Rainbow 反而失敗？
-[圖片位置：ranbow_DQN_random_new.png]
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/77da397b-0b99-4db7-92fe-7051acaff22d" />
+
 
 **觀察：**
 儘管使用了最先進的技術與同樣的 256-128-64 架構，Rainbow DQN 在 Random 模式下的表現卻不如預期的 3-3 版本穩定，橘線平均值遲遲無法穩定位於 0 分以上，且藍線 Raw Reward 震盪極其劇烈。
