@@ -58,7 +58,8 @@ DQN 的運作邏輯可以拆解為以下三個關鍵維度：
    - **目標不穩定**：由於沒有使用獨立的目標網路，更新權重 $\theta$ 的同時，計算 TD Target 的參考標準也在變動。這就像一個射箭手在瞄準時，靶心（Target）卻隨著弓箭手的動作而隨機移動，導致收斂極其困難。
 
 #### Naive DQN 實驗結果
-https://github.com/mengbei0116/DeepRL-HW3/blob/main/%E7%B5%90%E6%9E%9C%E5%9C%96%E7%89%87/Naive_DQN_static.png?raw=true
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/bdbe0503-e48f-4e7c-8dd2-d3e43df3be92" />
+
 [圖片位置：Naive DQN - Player]
 [圖片位置：Naive DQN - Random]
 
